@@ -1,0 +1,30 @@
+{
+  "name": "info8985scormobjects",
+  "version": "1.0.0",
+  "description": "scorm objects for labs in INFO8985",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhildred/INFO8985ScormObjects.git"
+  },
+  "keywords": [
+    "scorm",
+    "monitoring",
+    "loggin",
+    "CI",
+    "CD"
+  ],
+  "author": "Rich Hildred",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhildred/INFO8985ScormObjects/issues"
+  },
+  "homepage": "https://github.com/rhildred/INFO8985ScormObjects#readme",
+  "dependencies": {
+    "jszip": "^3.10.1"
+  }
+}
