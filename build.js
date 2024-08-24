@@ -19,8 +19,7 @@ const aFolders = await fs.promises.readdir(folderPath);
 for(const sFolder of aFolders){
     const oStats = await fs.promises.lstat(sFolder);
     if(!['.git', 'node_modules'].includes(sFolder) && oStats.isDirectory()){
-        //console.log(await run(`R -e 'rmarkdown::render("${sFolder}/slides.Rmd", output_format = "powerpoint_presentation", output_dir = "dist/${sFolder}")'`));
-        console.log(`R -e 'rmarkdown::render("${sFolder}/slides.Rmd", output_format = "powerpoint_presentation", output_dir = "dist/${sFolder}")'`);
+        console.log(await run(`R -e 'rmarkdown::render("${sFolder}/slides.Rmd", output_format = "powerpoint_presentation", output_dir = "dist/${sFolder}")'`));
     }
 }
 
