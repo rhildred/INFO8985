@@ -1,10 +1,28 @@
-FROM mcr.microsoft.com/vscode/devcontainers/python
-
-RUN apt update 
-
-RUN apt install -y ansible r-base r-base-dev pandoc texlive nodejs
-
-COPY hosts /etc/ansible/hosts
-
-RUN R -e 'install.packages("rmarkdown")'
-
+{
+    // ...
+    "build": { "dockerfile": "Dockerfile" },
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "streetsidesoftware.code-spell-checker",
+                "ms-python.autopep8",
+                "dbaeumer.vscode-eslint",
+                "ritwickdey.LiveServer",
+                "ms-python.vscode-pylance",
+                "ms-python.python",
+                "ms-python.debugpy",
+                "REditorSupport.r"
+            ]
+        }
+    }
+    // ...
+  }

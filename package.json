@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "build": "node index.js"
+    "build:zip": "node index.js",
+    "build:ppt": "node build.js"
   },
   "repository": {
     "type": "git",
