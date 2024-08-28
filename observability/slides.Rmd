@@ -1,54 +1,43 @@
 ---
-title: Title slide (Slide 1)
+title: Observability
 output:
   powerpoint_presentation:
     slide_level: 3 # use this to override default
 ---
 
-# Section header (Slide 2)
+### Agenda
 
-## Section header (Slide 3)
+- Introduce the Challenge/Activity
+- Theory to support learning outcomes and the Activity
+- Initial demo of activity
 
-### Slide Title (Slide 4)
+#### The Challenge
 
-Slide Content (by default this content sets the slide level to three)
-
-#### Slide content header (Slide 4)
-
-##### Slide content header (Slide 4)
-
-### Slide Title (Slide 5)
-- list item 1
-- list item 2
-
-#### List 2
-- list item 1
-- list item 2
-
-::: notes
-This is a speaker note.
-
-- Use basic Markdown
-- like this list
-- *and inline formatting*
-:::
-
-### Code here
-
-```javascript
-
-// This is javascript code
-
-console.log(`${name} was here`);
+Create a codespace from the [github template](https://github.com/rhildred/info8985-observability) and run:
 
 ```
+ansible-playbook toaster.yml
+```
 
-::: notes
-I am thinking that this will be in javascript format
+Observe the running system and use the umlet vscode plugin to document it with a deployment diagram. Submit the deployment diagram with the uploader at the [end of the presentation](#Upload).
 
-:::
+### Unit Learning Objectives
 
-### Another Slide
+- Explain the advantages tracing has over plain logging for root cause analysis of an issue.
+- Consider metrics like utilization, saturation and errors for system health.
+- Give reasons for REDS/Google golden metrics being an improvement for understanding how happy users will be with a system.
+- Consider logs, log levels and log models as a way of understanding software issues.
 
-- I don't think this should work???
-- lets see
+Note: See chapter 1 and 2 from the text
+
+### Consider the bus
+Who came by bus today?
+![GRT Map](images/transitMap.jpeg)
+
+### Bus observers
+## Do they all observe the same things?
+- riders
+- municipality
+- the garage
+- drivers
+- staffing coordinators
