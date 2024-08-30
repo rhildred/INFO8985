@@ -30,10 +30,47 @@ Observe the running system and use the umlet vscode plugin to document it with a
 
 ![GRT Map](images/transitMap.jpg)
 
-## Bus observers
-### Do they all observe the same things?
+## Bus Stakeholders
+### Do they all care about observing the same things?
+
 - riders
 - municipality
 - the garage
 - drivers
 - staffing coordinators
+
+### A complete view of observability integrates the needs of all Stakeholders
+
+## Riders (users of the system)
+- care about the current location of the bus they wish to get on
+- a metric with attributes of bus: 1234, route: 201, lat: 43.48171410601913, long: -80.51813393653605 timestamp: 1725052424
+- the eta of the bus at their location
+- projection from a time series of the last 4 stops and the time it took last time
+
+## Municipality
+- care about how riders use the system, which buses they take, how many transfers, what time of day
+- tracing a rider from when they get on their first bus to when they get off their last
+- care about how many riders are on each bus at any time and place
+- a metric with attributes of bus: 1234, route: 201, lat: 43.48171410601913, long: -80.51813393653605 timestamp: 1725052424, riders: 42
+
+## Garage
+- care about logs for the particular bus that they have in front of them
+- they may do inspections, but will rely on logs to know any problems with the bus
+- need sensor data for other things like predictive maintenance
+- this could also be from logs on the bus or from metrics reported directly by sensors
+- metrics would allow them to get the bus in for predictive maintenance
+
+## Drivers
+- care about their own schedules
+- a customized report produced from the database for them
+- care about the scheduled arrival times at each stop
+- could add another difference from schedule attribute to the stop arrival metric in the previous slide with an alert when the metric is greater than 90 seconds in either direction
+
+## Staffing Coordinators
+- care about ridership metrics somewhat for the rare occasions they could schedule an extra bus
+- care about stop arrival metrics that also include the drivers
+- drivers can't be early or late at stops
+
+## Different Observers Have Different Interests
+
+![The braid of open telemetry](images/braid.png)
