@@ -1,54 +1,9 @@
 ---
-title: Title slide (Slide 1)
-output:
-  powerpoint_presentation:
-    slide_level: 3 # use this to override default
+title: Microfrontend (log appender)
 ---
 
-# Section header (Slide 2)
+## Agenda
 
-## Section header (Slide 3)
-
-### Slide Title (Slide 4)
-
-Slide Content (by default this content sets the slide level to three)
-
-#### Slide content header (Slide 4)
-
-##### Slide content header (Slide 4)
-
-### Slide Title (Slide 5)
-- list item 1
-- list item 2
-
-#### List 2
-- list item 1
-- list item 2
-
-::: notes
-This is a speaker note.
-
-- Use basic Markdown
-- like this list
-- *and inline formatting*
-:::
-
-### Code here
-
-```javascript
-
-// This is javascript code
-
-console.log(`${name} was here`);
-
-```
-
-::: notes
-I am thinking that this will be in javascript format
-
-:::
-
-### Another Slide
-
-- I don't think this should work???
-- lets see
+- Introduce the Challenge/Activity
+- Theory to support learning outcomes and the Activity
+- Initial demo of activity
