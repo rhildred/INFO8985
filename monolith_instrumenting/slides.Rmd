@@ -1,7 +1,6 @@
 ---
 title: Monolith (instrumenting)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

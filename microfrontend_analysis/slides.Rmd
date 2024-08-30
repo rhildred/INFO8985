@@ -1,7 +1,6 @@
 ---
 title: Microfrontend (analysis)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

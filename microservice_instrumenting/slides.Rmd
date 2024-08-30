@@ -1,7 +1,6 @@
 ---
 title: Microservice (instrumenting)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

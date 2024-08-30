@@ -1,7 +1,6 @@
 ---
 title: Microservice (analysis)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

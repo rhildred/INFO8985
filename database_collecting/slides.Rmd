@@ -1,7 +1,6 @@
 ---
 title: Database (collecting)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

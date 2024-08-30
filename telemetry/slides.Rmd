@@ -1,7 +1,6 @@
 ---
 title: Telemetry
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

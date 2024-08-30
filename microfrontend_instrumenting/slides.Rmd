@@ -1,7 +1,6 @@
 ---
 title: Microfrontend (instrumenting)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

@@ -1,7 +1,6 @@
 ---
 title: Monolith (analysis)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity

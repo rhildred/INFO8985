@@ -1,7 +1,6 @@
 ---
 title: Microfrontend (log appender)
 ---
-
 ## Agenda
 
 - Introduce the Challenge/Activity
