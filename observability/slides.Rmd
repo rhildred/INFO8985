@@ -11,7 +11,7 @@ Note: See chapter 1 and 2 from the text
 
 ## The Challenge
 
-Create a codespace from the [github template](https://github.com/rhildred/info8985-observability) and run:
+Create a codespace from the [github template](https://github.com/rhildred/INFO8985-observability) and run:
 
 ```
 ansible-playbook toaster.yml
