@@ -527,6 +527,108 @@ pre code {
 <p class="caption">Thinkstock</p>
 </div>
 </div>
+<div id="logs-topic-by-themselves" class="section level2">
+<h2>Logs … topic by themselves</h2>
+<ul>
+<li>text-based messages meant for human consumption that describe the state of a system or service</li>
+<li>for instance, that a file couldn’t be written because the storage device was out of space</li>
+<li>full observability, by contrast, track available storage capacity</li>
+<li>leading indicators to prevent a failure that can be logged</li>
+</ul>
+</div>
+<div id="log-levels" class="section level2">
+<h2>Log levels</h2>
+<table>
+<colgroup>
+<col width="50%"></col>
+<col width="50%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>What it means / When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>logging.NOTSET</td>
+<td>When set on a logger, indicates that ancestor loggers are to be consulted to determine the effective level. If that still resolves to NOTSET, then all events are logged. When set on a handler, all events are handled.</td>
+</tr>
+<tr class="even">
+<td>logging.DEBUG</td>
+<td>Detailed information, typically only of interest to a developer trying to diagnose a problem.</td>
+</tr>
+<tr class="odd">
+<td>logging.INFO</td>
+<td>Confirmation that things are working as expected.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="log-levels-cont" class="section level2">
+<h2>Log levels (cont)</h2>
+<table>
+<colgroup>
+<col width="50%"></col>
+<col width="50%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>What it means / When to use it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>logging.WARNING</td>
+<td>An indication that something unexpected happened, or that a problem might occur in the near future (e.g. ‘disk space low’). The software is still working as expected.</td>
+</tr>
+<tr class="even">
+<td>logging.ERROR</td>
+<td>Due to a more serious problem, the software has not been able to perform some function.</td>
+</tr>
+<tr class="odd">
+<td>logging.CRITICAL</td>
+<td>A serious error, indicating that the program itself may be unable to continue running.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="log-models" class="section level2">
+<h2>Log models</h2>
+<p>models semi structure the data in the logs</p>
+<pre class="python"><code>import logging
+
+logging.basicConfig(format=&#39;%(asctime)s %(clientip)-15s %(user)-8s %(message)s&#39;)
+logger = logging.getLogger(&#39;tcpserver&#39;)
+logger.warning(&#39;Protocol problem: %s&#39;, &#39;connection reset&#39;, extra={&#39;clientip&#39;: &#39;192.168.0.1&#39;, &#39;user&#39;: &#39;fbloggs&#39;})</code></pre>
+</div>
+<div id="something-went-wrong" class="section level2">
+<h2>Something went wrong</h2>
+<blockquote>
+<p>Our engineers have been notified and are working on the problem</p>
+</blockquote>
+<ul>
+<li>observability, yes (if the devops engineers actually have been notified)</li>
+<li>messages like this are shown to users in the case of unhandled exceptions</li>
+</ul>
+</div>
+<div id="please-dont" class="section level2">
+<h2>Please don’t</h2>
+<p>… make an exception observable and then swallow it</p>
+<ul>
+<li>exception handling is different then making the exception observable</li>
+<li>always re-throw the exception at the point of writing a metric or logging</li>
+</ul>
+</div>
+<div id="observability" class="section level2">
+<h2>Observability</h2>
+<ul>
+<li>observability is in the process of changing for the better</li>
+<li>the heart of that change will be a newfound ability to correlate across all forms of telemetry: traces, metrics, logs</li>
+<li>correlation is the key to unlocking the workflows and automation that we desperately need to keep up with this world of ever expanding complex systems.</li>
+</ul>
+</div>
 
 
 
