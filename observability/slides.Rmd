@@ -120,6 +120,56 @@ Saturation
 ## Logs
 ![Thinkstock](images/ThinkStockPhotos.png)
 
+## Logs ... topic by themselves
+- text-based messages meant for human consumption that describe the state of a system or service
+- for instance, that a file couldn’t be written because the storage device was out of space
+- full observability, by contrast, track available storage capacity
+- leading indicators to prevent a failure that can be logged
 
+## Log levels
+Level|What it means / When to use it
+--|--
+logging.NOTSET|When set on a logger, indicates that ancestor loggers are to be consulted to determine the effective level. If that still resolves to NOTSET, then all events are logged. When set on a handler, all events are handled.
+logging.DEBUG|Detailed information, typically only of interest to a developer trying to diagnose a problem.
+
+## Log levels (cont)
+Level|What it means / When to use it
+--|--
+logging.INFO|Confirmation that things are working as expected.
+logging.WARNING|An indication that something unexpected happened, or that a problem might occur in the near future (e.g. ‘disk space low’). The software is still working as expected.
+
+## Log levels (cont)
+Level|What it means / When to use it
+--|--
+logging.ERROR|Due to a more serious problem, the software has not been able to perform some function.
+logging.CRITICAL|A serious error, indicating that the program itself may be unable to continue running.
+
+## Log models
+models semi structure the data in the logs
+
+```python
+import logging
+
+logging.basicConfig(format='%(asctime)s %(clientip)-15s %(user)-8s %(message)s')
+logger = logging.getLogger('tcpserver')
+logger.warning('Protocol problem: %s', 'connection reset', extra={'clientip': '192.168.0.1', 'user': 'fbloggs'})
+```
+
+## Something went wrong
+> Our engineers have been notified and are working on the problem
+
+- observability, yes (if the devops engineers actually have been notified)
+- messages like this are shown to users in the case of unhandled exceptions
+
+## Please don't
+... make an exception observable and then swallow it
+
+- exception handling is different then making the exception observable
+- always re-throw the exception at the point of writing a metric or logging
+
+## Observability
+- observability is in the process of changing for the better
+- the heart of that change will be a newfound ability to correlate across all forms of telemetry: traces, metrics, logs
+- correlation is the key to unlocking the workflows and automation that we desperately need to keep up with this world of ever expanding complex systems.
 
 
