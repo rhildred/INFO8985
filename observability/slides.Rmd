@@ -18,7 +18,7 @@ Create a codespace from the [github template](`r rmarkdown::metadata$lab`) and r
 ansible-playbook toaster.yml
 ```
 
-Observe the running system and use the umlet vscode plugin to document it with a deployment diagram. Submit the deployment diagram with the uploader at the [end of the presentation](#Upload).
+Observe the running system and use [https://www.umletino.com/umletino.html](https://www.umletino.com/umletino.html) to document it with a deployment diagram. Submit the deployment diagram with the uploader at the [end of the presentation](#Upload).
 
 ## Unit Learning Objectives
 
