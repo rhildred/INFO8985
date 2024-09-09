@@ -1,10 +1,41 @@
 ---
 title: Telemetry
+lab: https://github.com/rhildred/INFO8985-telemetry
 ---
 ## Agenda
 
-- Introduce the Challenge/Activity
-- Theory to support learning outcomes and the Activity
+- Review observability Challenge/Activity
+- Introduce the Challenge/Activity for telemetry
+- Theory to support telemetry learning outcomes and activity
 - Initial demo of activity
 
+
 Note: See chapter 3 and 4 from the text
+
+## Observability (activity review)
+
+We installed the kubernetes dashboard. From their github:
+
+> Kubernetes Dashboard is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage applications running in the cluster and troubleshoot them, as well as manage the cluster itself.
+
+- essentially this was a "hello world" for a distributed system using kubernetes ansible and helm
+- a pod is the unit of deployment in our case ... see the next slides
+
+## Kubernetes dashboard
+
+![kubernetes dashboard](images/kubernetesdashboard.png)
+
+## Deployment diagram
+
+![deployment diagram](images/local-k8s.png)
+
+## Telemetry Lab
+
+Create a codespace from the [github template](`r rmarkdown::metadata$lab`) and run:
+
+```
+pip install -r requirements.txt
+ansible-playbook playbook.yml
+```
+
+Follow instructions in chapter 4 of the text and make notes in README.md. Submit the README.md file with the uploader at the [end of the presentation](#Upload).

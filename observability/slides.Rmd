@@ -15,10 +15,11 @@ Note: See chapter 1 and 2 from the text
 Create a codespace from the [github template](`r rmarkdown::metadata$lab`) and run:
 
 ```
-ansible-playbook toaster.yml
+pip install -r requirements.txt
+ansible-playbook playbook.yml
 ```
 
-Observe the running system and use [https://www.umletino.com/umletino.html](https://www.umletino.com/umletino.html) to document it with a deployment diagram. Submit the deployment diagram with the uploader at the [end of the presentation](#Upload).
+Follow instructions to observe the running system and use [umlet](https://www.umletino.com/umletino.html) to document it with a deployment diagram. Submit the deployment diagram with the uploader at the [end of the presentation](#Upload).
 
 ## Unit Learning Objectives
 
