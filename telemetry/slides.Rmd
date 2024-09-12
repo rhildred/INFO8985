@@ -36,6 +36,7 @@ Create a codespace from the [github template](`r rmarkdown::metadata$lab`) and r
 ```
 pip install -r requirements.txt
 ansible-playbook playbook.yml
+kubectl port-forward svc/my-otel-demo-frontendproxy 8080:8080
 ```
 
 Follow instructions in chapter 4 of the text and make notes in README.md. Submit the README.md file with the uploader at the [end of the presentation](#Upload).
@@ -68,7 +69,7 @@ Follow instructions in chapter 4 of the text and make notes in README.md. Submit
 - metrics ... to see how system performance changes over time
 - then tracing ... look at entire operations and how they combined to form transactions
 
-## SCADA
+## Supervisory Control And Data Acquisition (SCADA)
 
 ![MTA Capital Construction Mega Projects, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons](images/Working_on_the_punch_list_for_tunnel_SCADA_control._The_SCADA_system_gives_LIRR_engineers_remote_control_of_all_of_the_power_facilities._06-27-19_(48146652996).jpg)
 
@@ -78,11 +79,18 @@ Follow instructions in chapter 4 of the text and make notes in README.md. Submit
 - Infrastructure ... include water treatment and distribution, wastewater collection and treatment, oil and gas pipelines, electric power transmission, and wind farms.
 - Facility , including buildings, airports, ships, and space stations ... monitor and control heating, ventilation, and air conditioning systems (HVAC), access, and energy consumption.
 
-## SNMP
+## Critical Infrastructure
+
+- Many minor changes over 10 year system lifespan
+- changes driven by adding new equipment, regulatory requirements, functionality improvements
+- Despite in-depth testing before introduction to production environment ... Difficult to test all consequence of change
+- Pretty major failures to important infrastructure ... Sounds like a case for DevOps
+
+## Simple Network Management Protocol (SNMP)
 
 ![An.bellizzi, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](images/Snmp-interaction_v1.1.png)
 
-## consists of three key components
+## SNMP consists of three key components
 
 - Managed devices
 - Agent - software that runs on managed devices
@@ -95,6 +103,10 @@ Follow instructions in chapter 4 of the text and make notes in README.md. Submit
 
 ## Open Telemetry
 
+![Chapter 4 and the open telemetry demo](images/otel.png)
+
+## Open Telemetry by contrast
+
 - used to monitor distributed software systems 
 - similar to SCADA and SNMP in that it monitors and generates alerts
 - different in that it is read only, where SCADA and SNMP can also manipulate systems
@@ -103,7 +115,12 @@ Follow instructions in chapter 4 of the text and make notes in README.md. Submit
 
 ## Time Series Database (TSDB) Storage
 
-- need to store enough history to meet stakeholder needs
+![dbengine <https://www.influxdata.com/blog/relational-databases-vs-time-series-databases/>](images/db-engines-tsdb.png)
+
+## Store enough to meet stakeholder needs
+
+- in today's demo timeseries data will be stored in memory
+- a long term storage option is Thanos
 
 > Thanos provides a global query view, high availability, data backup with historical, cheap data access as its core features in a single binary.
 
@@ -126,10 +143,18 @@ Follow instructions in chapter 4 of the text and make notes in README.md. Submit
 ```
 - many more examples to follow when we talk about instrumenting
 
+## Telemetry Example (Trace)
+
+![explore/jaeger/adService ...](images/adservice.png)
+
 ## Manual testing for observability
 
 - the [lab](`r rmarkdown::metadata$lab`) uses feature flags, described in chapter 4, to manipulate the open telemetry demo
 - note your observations in the README file and submit it [below](#Upload)
+
+## Observability Coverage
+
+![Coverage at: <https://opentelemetry.io/docs/demo/telemetry-features/>](images/opentelemetrydemo.png)
 
 ## Telemetry
 
