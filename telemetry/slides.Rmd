@@ -39,3 +39,103 @@ ansible-playbook playbook.yml
 ```
 
 Follow instructions in chapter 4 of the text and make notes in README.md. Submit the README.md file with the uploader at the [end of the presentation](#Upload).
+
+## Learning outcomes
+
+- Explain how historical applications of telemetry for things like predictive maintenance apply to software.
+- Compare alternatives for software telemetry within the observability ecosystem.
+- Justify the storage needs for telemetry, based on information needs for operational success. 
+- Validate and configure collectors to collect logs and/or metrics for observability and troubleshooting.
+
+
+## A Brief History of Telemetry
+
+![Southern Railway, 1928](images/800px-Electric_frame_signalbox_at_London_Bridge,_Southern_Railway_(CJ_Allen,_Steel_Highway,_1928).jpg)
+
+## "Telemetry" sent over telegraph lines
+
+- used to control switches on train tracks, power plants and public power grids
+
+> early but important distributed systems!
+
+- moved onto trains to prevent bearing overheating and fires
+- further expanded to predictive maintenance to keep broken trains from blocking the tracks
+- logging esentially built into Unix software with system activity reporting and system logging service
+
+## computer telemetry on network
+
+- first logs ... to tell you about individual events and moments within a system
+- metrics ... to see how system performance changes over time
+- then tracing ... look at entire operations and how they combined to form transactions
+
+## SCADA
+
+![MTA Capital Construction Mega Projects, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons](images/Working_on_the_punch_list_for_tunnel_SCADA_control._The_SCADA_system_gives_LIRR_engineers_remote_control_of_all_of_the_power_facilities._06-27-19_(48146652996).jpg)
+
+## Uses
+
+- Industrial include manufacturing, process control, power generation, fabrication, and refining
+- Infrastructure ... include water treatment and distribution, wastewater collection and treatment, oil and gas pipelines, electric power transmission, and wind farms.
+- Facility , including buildings, airports, ships, and space stations ... monitor and control heating, ventilation, and air conditioning systems (HVAC), access, and energy consumption.
+
+## SNMP
+
+![An.bellizzi, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons](images/Snmp-interaction_v1.1.png)
+
+## consists of three key components
+
+- Managed devices
+- Agent - software that runs on managed devices
+- Network management station (NMS) - software that runs on the manager
+
+### Uses
+
+- SNMP used by IT to monitor and update networked devices
+- SCADA used by operations to control processes
+
+## Open Telemetry
+
+- used to monitor distributed software systems 
+- similar to SCADA and SNMP in that it monitors and generates alerts
+- different in that it is read only, where SCADA and SNMP can also manipulate systems
+- tracing, look at entire operations as they span services
+- absence of auditable tracking in SCADA ... opportunity for DevOps??????
+
+## Time Series Database (TSDB) Storage
+
+- need to store enough history to meet stakeholder needs
+
+> Thanos provides a global query view, high availability, data backup with historical, cheap data access as its core features in a single binary.
+
+- Thanos supports S3, GCS, Azure, OpenStack Swift, Tencent COS, AliYun OSS, Baidu BOS, Oracle Cloud Infrastructure Object Storage object stores
+- storage format is object based with a block defined by a prefix and a series of blobs
+
+## Storage Configuration
+
+- focusing on Thanos, there is [documentation here](https://thanos.io/tip/thanos/storage.md/).
+- the storage is controlled by the values.yaml file in the [helm chart](https://github.com/bitnami/charts/blob/main/bitnami/thanos/values.yaml)
+- in open telemetry demo for today's lab the [helm chart is here](https://github.com/open-telemetry/opentelemetry-helm-charts/blob/main/charts/opentelemetry-demo/values.yaml).
+- there is a lot to these values, but focus on the components (starting on line 47)
+
+## Otel collectors
+- each component has an otel collector to make it observable
+- for instance the emailService has:
+```
+      - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+        value: http://$(OTEL_COLLECTOR_NAME):4318/v1/traces
+```
+- many more examples to follow when we talk about instrumenting
+
+## Manual testing for observability
+
+- the [lab](`r rmarkdown::metadata$lab`) uses feature flags, described in chapter 4, to manipulate the open telemetry demo
+- note your observations in the README file and submit it [below](#Upload)
+
+## Telemetry
+
+> Without telemetry, your system is just a big black box filled with mystery.
+
+- this is especially a problem with distributed systems
+- part of the system runs on a sensor, appliance or even a phone
+- telemetry lets operators and other stakeholders see inside the box and help the system reach it's goals.
+
