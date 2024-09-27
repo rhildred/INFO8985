@@ -41,6 +41,14 @@ Create a codespace from this [github template](`r rmarkdown::metadata$lab`).
 
 ![Open Telemetry Protocol](images/systemofrecord.png)
 
+## View in Prometheus
+
+![available metrics](images/prometheusstats.PNG)
+
+## See on a graph
+
+![total commits](images/graph.PNG)
+
 ## Baseline metrics
 
 - REDS is a good start
@@ -102,7 +110,7 @@ WHERE (now() - pg_stat_activity.query_start) > interval '2 minutes';
 ## User problems ...
 
 - can sometimes be traced back to database problems
-- the system becoming bogged down can be caused by duration > arrival rate and fixed by adding 
+- the system becoming bogged down can be caused by duration > arrival rate and fixed by adding indexes
 - exceptions from database logs can relate to gateway timeouts from unhandled exceptions in the
 
 ## Alerts can be generated
