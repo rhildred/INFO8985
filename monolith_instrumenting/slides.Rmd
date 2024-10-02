@@ -1,8 +1,70 @@
 ---
 title: Monolith (instrumenting)
+lab: https://github.com/rhildred/INFO8985_monolith
 ---
 ## Agenda
 
+- Review database lab
 - Introduce the Challenge/Activity
 - Theory to support learning outcomes and the Activity
 - Initial demo of activity
+
+Chapter 3 and 5 in the book
+
+## Otel Collector for Database (R)
+
+```yaml
+    queries:
+      - sql: "SELECT sum(xact_commit+xact_rollback) as count_test FROM pg_stat_database; "
+        metrics:
+          - metric_name: query_requests # R from REDS
+            value_column: count_test
+```
+
+## Otel Collector for Database (E)
+
+```yaml
+      - sql: "SELECT sum(xact_rollback) as count_test FROM pg_stat_database; "
+        metrics:
+          - metric_name: query_errors # E from REDS
+            value_column: count_test
+```
+
+## Monolithic white box Challenge
+
+- Create a codespace from this [github template](`r rmarkdown::metadata$lab`).
+- Start with, "Create and launch an HTTP Server," in [the open telemetry python docs](https://opentelemetry.io/docs/languages/python/getting-started/)
+- When you are done submit the output from the `docker-compose up` window
+
+## Learning Outcomes
+
+- Support traces in a monolithic app by instrumenting so that code traces are available for troubleshooting.
+- Measure REDS metrics in monolithic app by adding and incrementing the appropriate counters.
+- Integrate language logs by turning them into open telemetry loggers.
+
+## Observability Pipelines
+
+> push data from a process to an instance of the OpenTelemetry Collector. Filtering, batching, and creating metric views are all accomplished at the Collector rather than in the process itself.
+
+- having said that the semantics of what we push are important
+- chapter 3 covers this in some depth
+
+## Pipeline Semantics
+
+![OpenTelemetry’s long-term support guarantees](images/otelSupport.png)
+
+## Foundation of OpenTelemetry is built on two points: 
+
+- standards-based context and conventions, 
+- alongside a universal data format.
+- the telemetry pipeline includes attributes that meet stakeholder needs for observability
+
+## Telemetry Schemas
+
+![An example of a schema-aware telemetry system](images/schemas.png)
+
+## Open Telemetry Collector
+
+- can provide schema transformations
+- support changes in semantic conventions (and their associated support in analysis tools) 
+- without having to reinstrument or redefine output from existing services
