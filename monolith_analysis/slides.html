@@ -11,7 +11,7 @@
 
 
 
-<title>Monolith (analysis)</title>
+<title>Monolith (analysis - midterm review)</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,7 +354,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Monolith (analysis)</h1>
+<h1 class="title toc-ignore">Monolith (analysis - midterm review)</h1>
 
 </div>
 
@@ -362,11 +362,11 @@ pre code {
 <div id="agenda" class="section level2">
 <h2>Agenda</h2>
 <ul>
-<li>Review instrumentation for assignment 1</li>
+<li>Review instrumentation from <a href="https://github.com/rhildred/info8985_monolith_analysis">last week</a> for assignment 1</li>
 <li>Review the learning outcomes for the midterm</li>
 <li>Work period on assignment 1</li>
 </ul>
-<p>Based on chapter 1-5 in text</p>
+<p>Based on chapter 1-5 in text and notes summarized here.</p>
 </div>
 <div id="the-midterm-is-4-written-response-questions" class="section level2">
 <h2>The midterm is 4 written response questions</h2>
@@ -387,9 +387,59 @@ pre code {
 </div>
 <div id="test-for-deficiencies" class="section level2">
 <h2>Test for deficiencies</h2>
+<ul>
+<li>A dev-ops team would ultimately write a failing test that exposes the root cause of a system outage, make the test pass and deploy through continuous integration.</li>
+<li>Monitoring and logging helps get to the root cause of a problem a customer may be facing</li>
+<li>In chapter 4 of the book, we looked at different things we can learn from the otel demo</li>
+<li>correlate what the customer is seeing with metrics … for instance</li>
+</ul>
+</div>
+<div id="relate-reds-metrics-to-what-the-customer-is-seeing" class="section level2">
+<h2>Relate REDS metrics to what the customer is seeing</h2>
+<ul>
+<li>use metric attributes to drill down to the subsystem</li>
+<li>compare REDS metrics to what the customer is seeing</li>
+<li>errors for instance will be above the baseline established previously if customers are seeing errors</li>
+</ul>
 </div>
 <div id="separate-tracing-from-handling" class="section level2">
 <h2>Separate tracing from handling</h2>
+<pre class="python"><code>from opentelemetry import trace
+span = trace.get_current_span()
+except ValueError as exc:
+    # Record the exception and update the span status.
+    span.record_exception(exc)
+    span.set_status(trace.Status(trace.StatusCode.ERROR, str(exc)))
+    raise</code></pre>
+</div>
+<div id="separate-logging-from-handling" class="section level2">
+<h2>Separate logging from handling</h2>
+<pre class="python"><code>import traceback
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+try:
+    do_something_that_might_error()
+except Exception as error:
+    logger.debug(traceback.format_exc())
+    raise</code></pre>
+</div>
+<div id="separate-metric-from-handling" class="section level2">
+<h2>Separate Metric from handling</h2>
+<pre class="python"><code>try:
+    do_something_that_might_error()
+except:
+    error_counter.add(1, {&quot;error.module&quot;: __name__})
+    raise</code></pre>
+</div>
+<div id="always-remember-to-raise" class="section level2">
+<h2>Always remember to raise</h2>
+<pre class="python"><code>except ValueError as exc:
+    ...
+    raise</code></pre>
+<ul>
+<li>critical so that the calling app can deal with the exception</li>
+</ul>
 </div>
 <div id="metric-baselines" class="section level2">
 <h2>Metric baselines</h2>
