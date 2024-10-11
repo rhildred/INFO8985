@@ -102,3 +102,23 @@ annotations:
 ```
 
 ## Supporting Evidence
+
+- make a proportional response to customer problems
+- fix greatest risk first
+- risk = probability x impact
+- can assess the relative probability of the problem by comparing error metrics
+
+## Impact is trickier
+
+- customer will often have an opinion about how the problem is impacting them
+- ideally we have KPI/metrics that can quantify the impact of a problem
+- in the spirit of devops we should adjust KPIs based on problems we encounter and resolve
+- KPIs must be understandable to the customer so that if the problem recurs we have a way of helping the customer to understand the impact.
+
+## Conclusion
+
+- didn't get as far with analysis as I had hoped
+- planning on introducing Thanos for analysis as it writes to S3 bucket for inexpensive storage
+- failed this week trying to use terraform with localstack because of a dumb mistake
+- more to come
+- good luck on assignment and midterm
