@@ -441,8 +441,25 @@ except:
 <li>critical so that the calling app can deal with the exception</li>
 </ul>
 </div>
-<div id="metric-baselines" class="section level2">
-<h2>Metric baselines</h2>
+<div id="alerts" class="section level2">
+<h2>Alerts</h2>
+<ul>
+<li>we use baselines to see if things have changed from when the system was put into production</li>
+<li>once we have a baseline we can establish thresholds for alerts</li>
+<li>Alerts are emmitted based on rules in the exporter that gets metrics</li>
+<li><code>(sum(rate(http_requests_total{status=&quot;500&quot;}[5m])) / sum(rate(http_requests_total[5m]))) &gt; 0.05</code> (prometheus promql)</li>
+</ul>
+</div>
+<div id="an-alert-is-defined-in-the-prometheus.yaml" class="section level2">
+<h2>An alert is defined in the <code>prometheus.yaml</code></h2>
+<pre class="yaml"><code>- alert: HighRequestErrorRate
+expr: (see above)
+for: 5m
+labels:
+    severity: critical
+annotations:
+    summary: High request error rate
+    description: HTTP errors have exceeded 5% for 5 minutes.</code></pre>
 </div>
 <div id="supporting-evidence" class="section level2">
 <h2>Supporting Evidence</h2>
