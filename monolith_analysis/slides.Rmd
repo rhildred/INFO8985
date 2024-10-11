@@ -10,6 +10,13 @@ lab: https://github.com/rhildred/info8985_monolith_analysis
 
 Based on chapter 1-5 in text and notes summarized here.
 
+## Assignment 1
+
+- please compare and contrast [last weeks lab](`r rmarkdown::metadata$lab`) with [this example](https://github.com/open-telemetry/opentelemetry-php-contrib/tree/main/examples/instrumentation/Wordpress)
+- the wordpress example uses the `autoinstrumented-wordpress.dockerfile` and `compose.yaml` to do the docker setup.
+- the rest of the files are used in the containers
+- start with last week's lab to get the dependencies for docker-compose and ansible
+
 ## The midterm is 4 written response questions
 
 - in the quiz tool
