@@ -81,7 +81,24 @@ except ValueError as exc:
 ```
 - critical so that the calling app can deal with the exception
 
+## Alerts
 
-## Metric baselines
+- we use baselines to see if things have changed from when the system was put into production
+- once we have a baseline we can establish thresholds for alerts
+- Alerts are emmitted based on rules in the exporter that gets metrics
+- `(sum(rate(http_requests_total{status="500"}[5m])) / sum(rate(http_requests_total[5m]))) > 0.05` (prometheus promql)
+
+## An alert is defined in the `prometheus.yaml`
+
+```yaml
+- alert: HighRequestErrorRate
+expr: (see above)
+for: 5m
+labels:
+    severity: critical
+annotations:
+    summary: High request error rate
+    description: HTTP errors have exceeded 5% for 5 minutes.
+```
 
 ## Supporting Evidence
