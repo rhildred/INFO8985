@@ -1,9 +1,33 @@
 ---
 title: Monolith (analysis)
+lab: none this week
 ---
 ## Agenda
 
-- Introduce the Challenge/Activity
-- Theory to support learning outcomes and the Activity
-- Initial demo of activity
+- Review instrumentation for assignment 1
+- Review the learning outcomes for the midterm
+- Work period on assignment 1
 
+Based on chapter 1-5 in text
+
+## The midterm is 4 written response questions
+
+- in the quiz tool
+- each question is worth 5 marks
+- each question is based on a situation
+
+## Covered Learning outcomes
+
+- Test monolith and microservice architectures for observability and resolve deficiencies using tracing, metrics and logging.
+- Support development and operations by separating exception tracing from exception handling.
+- Prioritize deviations from metric baselines by sending and responding to alerts
+- Justify issue priority based on evidence from monitoring and logging.
+
+## Test for deficiencies
+
+
+## Separate tracing from handling
+
+## Metric baselines
+
+## Supporting Evidence
