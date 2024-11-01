@@ -8,7 +8,7 @@ lab: https://github.com/rhildred/INFO8985_microservice_instrumentation
 - Theory to support learning outcomes and the Activity
 - Initial demo of activity
 
-## Monolithic white box Challenge
+## Microservice white box Challenge
 
 - Create a codespace from this [github template](`r rmarkdown::metadata$lab`).
 - follow the instructions in the README.md
@@ -23,6 +23,7 @@ lab: https://github.com/rhildred/INFO8985_microservice_instrumentation
 
 - separate deployable
 - meant to be provided by an autonomous team
+- this is a great way to get things done in parallel
 - continuous integration and deployment
 - internal and external apis are done this way
 - scale to 0 when not being used to not incur billing
