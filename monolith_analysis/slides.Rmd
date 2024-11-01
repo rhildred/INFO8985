@@ -1,39 +1,131 @@
 ---
-title: Monolith (analysis)
-lab: https://github.com/rhildred/INFO8985_monolith
+title: Monolith (analysis - midterm review)
+lab: https://github.com/rhildred/info8985_monolith_analysis
 ---
 ## Agenda
 
-- Review database lab
-- Introduce the Challenge/Activity
-- Theory to support learning outcomes and the Activity
-- Initial demo of activity
+- Review instrumentation from [last week](`r rmarkdown::metadata$lab`) for assignment 1
+- Review the learning outcomes for the midterm
+- Work period on assignment 1
 
-Chapter 3 and 5 in the book
+Based on chapter 1-5 in text and notes summarized here.
 
-## Otel Collector for Database
+## Assignment 1
 
-```yaml
-    queries:
-      - sql: "SELECT sum(xact_commit+xact_rollback) as count_test FROM pg_stat_database; "
-        metrics:
-          - metric_name: query_requests # R from REDS
-            value_column: count_test
-      - sql: "SELECT sum(xact_rollback) as count_test FROM pg_stat_database; "
-        metrics:
-          - metric_name: query_errors # E from REDS
-            value_column: count_test
+- please compare and contrast [last weeks lab](`r rmarkdown::metadata$lab`) with [this example](https://github.com/open-telemetry/opentelemetry-php-contrib/tree/main/examples/instrumentation/Wordpress)
+- the wordpress example uses the `autoinstrumented-wordpress.dockerfile` and `compose.yaml` to do the docker setup.
+- the rest of the files are used in the containers
+- start with last week's lab to get the dependencies for docker-compose and ansible
+
+## The midterm is 4 written response questions
+
+- in the quiz tool
+- each question is worth 5 marks
+- each question is based on a situation
+
+## Covered Learning outcomes
+
+- Test monolith and microservice architectures for observability and resolve deficiencies using tracing, metrics and logging.
+- Support development and operations by separating exception tracing from exception handling.
+- Prioritize deviations from metric baselines by sending and responding to alerts
+- Justify issue priority based on evidence from monitoring and logging.
+
+## Test for deficiencies
+
+- A dev-ops team would ultimately write a failing test that exposes the root cause of a system outage, make the test pass and deploy through continuous integration.
+- Monitoring and logging helps get to the root cause of a problem a customer may be facing
+- In chapter 4 of the book, we looked at different things we can learn from the otel demo
+- correlate what the customer is seeing with metrics ... for instance
+
+## Relate REDS metrics to what the customer is seeing
+
+- use metric attributes to drill down to the subsystem
+- compare REDS metrics to what the customer is seeing
+- errors for instance will be above the baseline established previously if customers are seeing errors
+
+## Separate tracing from handling
+
+```python
+from opentelemetry import trace
+span = trace.get_current_span()
+except ValueError as exc:
+    # Record the exception and update the span status.
+    span.record_exception(exc)
+    span.set_status(trace.Status(trace.StatusCode.ERROR, str(exc)))
+    raise
 ```
 
-## Monolithic white box Challenge
+## Separate logging from handling
 
-- Create a codespace from this [github template](`r rmarkdown::metadata$lab`).
-- Start with, "Create and launch an HTTP Server," in [the open telemetry python docs](https://opentelemetry.io/docs/languages/python/getting-started/)
-- When you are done submit the output from the `docker-compose up` window
+```python
+import traceback
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+try:
+    do_something_that_might_error()
+except Exception as error:
+    logger.debug(traceback.format_exc())
+    raise
+```
 
-## Learning Outcomes
+## Separate Metric from handling
 
-- Support traces in a monolithic app by instrumenting so that code traces are available for troubleshooting.
-- Measure REDS metrics in monolithic app by adding and incrementing the appropriate counters.
-- Integrate language logs by turning them into open telemetry loggers.
+```python
+try:
+    do_something_that_might_error()
+except:
+    error_counter.add(1, {"error.module": __name__})
+    raise
+```
 
+## Always remember to raise
+
+```python
+except ValueError as exc:
+    ...
+    raise
+```
+- critical so that the calling app can deal with the exception
+
+## Alerts
+
+- we use baselines to see if things have changed from when the system was put into production
+- once we have a baseline we can establish thresholds for alerts
+- Alerts are emmitted based on rules in the exporter that gets metrics
+- `(sum(rate(http_requests_total{status="500"}[5m])) / sum(rate(http_requests_total[5m]))) > 0.05` (prometheus promql)
+
+## An alert is defined in the `prometheus.yaml`
+
+```yaml
+- alert: HighRequestErrorRate
+expr: (see above)
+for: 5m
+labels:
+    severity: critical
+annotations:
+    summary: High request error rate
+    description: HTTP errors have exceeded 5% for 5 minutes.
+```
+
+## Supporting Evidence
+
+- make a proportional response to customer problems
+- fix greatest risk first
+- risk = probability x impact
+- can assess the relative probability of the problem by comparing error metrics
+
+## Impact is trickier
+
+- customer will often have an opinion about how the problem is impacting them
+- ideally we have KPI/metrics that can quantify the impact of a problem
+- in the spirit of devops we should adjust KPIs based on problems we encounter and resolve
+- KPIs must be understandable to the customer so that if the problem recurs we have a way of helping the customer to understand the impact.
+
+## Conclusion
+
+- didn't get as far with analysis as I had hoped
+- planning on introducing Thanos for analysis as it writes to S3 bucket for inexpensive storage
+- failed this week trying to use terraform with localstack because of a dumb mistake
+- more to come
+- good luck on assignment and midterm
