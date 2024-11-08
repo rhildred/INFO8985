@@ -68,4 +68,4 @@ OTEL_RESOURCE_ATTRIBUTES=service.name=fastapiApp,service.version=<commit hash>
 
 ## Next week
 
-- We will start with Microservices
+- We will start with Microfrontends
