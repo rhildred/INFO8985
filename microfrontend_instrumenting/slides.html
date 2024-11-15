@@ -362,10 +362,66 @@ pre code {
 <div id="agenda" class="section level2">
 <h2>Agenda</h2>
 <ul>
-<li>Introduce the Challenge/Activity</li>
-<li>Theory to support learning outcomes and the Activity</li>
+<li>Review <a href="https://github.com/rhildred/INFO8985_microservice_analysis">Analysis with signoz and fastapi</a></li>
+<li>Look at <a href>javascript otel</a></li>
+<li>Microfrontend talk</li>
 <li>Initial demo of activity</li>
 </ul>
+</div>
+<div id="learning-outcomes" class="section level2">
+<h2>Learning Outcomes</h2>
+<ul>
+<li>Interpret information from logs to reproduce and resolve problems.</li>
+<li>Measure REDS metrics in a microservice by adding and incrementing the appropriate counters.</li>
+<li>Determine metrics from the point of view of the customer from a micro-frontend</li>
+</ul>
+</div>
+<div id="analysis-with-signoz-and-fastapi" class="section level2">
+<h2>Analysis with signoz and fastapi</h2>
+<ul>
+<li>today’s microfrontend is based on <a href="https://github.com/rhildred/INFO8985_microservice_analysis">fastapi as on last week</a></li>
+<li>Hopefully you are comfortable with viewing metrics, logs and traces in signoz</li>
+<li>the app last week was in the /app folder</li>
+<li>this week the app is <code>/app.py</code></li>
+<li>please instrument it and run as in the other lab once you are comfortable with what it does.</li>
+</ul>
+</div>
+<div id="instrumenting-front-end-code" class="section level2">
+<h2>Instrumenting front end code</h2>
+<ul>
+<li>while preparing, I did this <a href="https://github.com/rhildred/node-otel">javascript example</a>.</li>
+<li>this is based on a <a href="https://signoz.io/opentelemetry/nodejs/">javascript example</a>.</li>
+<li>the javascript code for this project is in <code>/index.js</code></li>
+<li>please instrument it and run as in the other lab once you are comfortable with what it does.</li>
+</ul>
+</div>
+<div id="microfrontends" class="section level2">
+<h2>Microfrontends</h2>
+<ul>
+<li>for autonomous teams to develop software that can then be composed in to an application</li>
+<li>reduce coupling!</li>
+<li>Martin Fowler wrote about this is <a href="https://martinfowler.com/articles/micro-frontends.html">this excellent article</a></li>
+<li>the holy grail of distributed systems</li>
+<li>not as well adopted as one would hope for</li>
+</ul>
+</div>
+<div id="composition" class="section level2">
+<h2>Composition</h2>
+<ul>
+<li>micro frontends have custom elements for their autonomous user interfaces</li>
+<li>a custom element extends a HTMLElement to implement a particular new tag</li>
+</ul>
+<pre class="javascript"><code>class Year extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = new Date().getFullYear();
+    }
+}</code></pre>
+</div>
+<div id="the-custom-element-is-pulled-in-by" class="section level2">
+<h2>The custom element is pulled in by</h2>
+<pre class="javascript"><code>customElements.define(&quot;x-date&quot;, Year);</code></pre>
+<p>and</p>
+<pre class="html"><code>&lt;script src=&quot;index.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;</code></pre>
 </div>
 
 
