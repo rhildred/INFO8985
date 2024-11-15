@@ -5,7 +5,7 @@ lab: https://github.com/rhildred/INFO8985_microfrontend
 ## Agenda
 
 - Review [Analysis with signoz and fastapi](https://github.com/rhildred/INFO8985_microservice_analysis)
-- Look at [javascript otel]()
+- Look at [javascript otel](https://github.com/rhildred/node-otel)
 - Microfrontend talk
 - Initial demo of activity
 
@@ -82,7 +82,7 @@ and
 
 ## The article last week
 
-[![had someting on distributed tracing](images/opentelemetry-fastapi-cover.webp)](https://signoz.io/blog/opentelemetry-fastapi/)
+[![had something on distributed tracing](images/opentelemetry-fastapi-cover.webp)](https://signoz.io/blog/opentelemetry-fastapi/)
 
 ## Correlating Traces Across Microservices
 
@@ -97,5 +97,12 @@ ctx = extract(request.headers)
 ## strace
 
 - traces system calls of a particular process
-- with autonomous teams and microfrontends we need to trace accross processes
+- with autonomous teams and microfrontends we need to trace across processes
 - opentelemetry lets us do that in a way that we can really add value beyond predictability to our companies
+
+## This week's activity
+
+- to instrument the [code in the lab](`r rmarkdown::metadata$lab`).
+- add signoz to your project like in [last week's lab](https://github.com/rhildred/INFO8985_microservice_analysis)
+- you do not need to worry about logging on the [javascript side](https://github.com/rhildred/node-otel)
+- that's what next week's activity will be about
