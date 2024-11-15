@@ -61,3 +61,41 @@ and
 ```html
 <script src="index.js" type="module"></script>
 ```
+
+## The script brings the custom tag in anywhere
+
+![in wordpress](images/wordpress.PNG)
+
+## Even into legacy apps
+
+- retrieve with wget -r
+- build with figma and TeleportHQ
+- or with something like Rails, Django or Symphony
+
+## Monitoring and Logging
+
+- so important with autonomous teams
+- the devOps group may be the only ones who see the whole application
+- important to get the repository path as the service.name
+- very important to get the commit hash
+- monitoring and logging can take away some of the passion about what code belongs to which autonomous team
+
+## The article last week
+
+[![had someting on distributed tracing](images/opentelemetry-fastapi-cover.webp)](https://signoz.io/blog/opentelemetry-fastapi/)
+
+## Correlating Traces Across Microservices
+
+- also important with Microfrontends
+```python
+from opentelemetry.propagate import extract, inject
+ctx = extract(request.headers)
+    with tracer.start_as_current_span("get_user", context=ctx):
+        inject(headers)
+```
+
+## strace
+
+- traces system calls of a particular process
+- with autonomous teams and microfrontends we need to trace accross processes
+- opentelemetry lets us do that in a way that we can really add value beyond predictability to our companies
