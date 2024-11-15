@@ -1,8 +1,63 @@
 ---
 title: Microfrontend (instrumenting)
+lab: https://github.com/rhildred/INFO8985_microfrontend
 ---
 ## Agenda
 
-- Introduce the Challenge/Activity
-- Theory to support learning outcomes and the Activity
+- Review [Analysis with signoz and fastapi](https://github.com/rhildred/INFO8985_microservice_analysis)
+- Look at [javascript otel]()
+- Microfrontend talk
 - Initial demo of activity
+
+## Learning Outcomes
+
+- Interpret information from logs to reproduce and resolve problems.
+- Measure REDS metrics in a microservice by adding and incrementing the appropriate counters.
+- Determine metrics from the point of view of the customer from a micro-frontend
+
+## Analysis with signoz and fastapi
+
+- today's microfrontend is based on [fastapi as on last week](https://github.com/rhildred/INFO8985_microservice_analysis)
+- Hopefully you are comfortable with viewing metrics, logs and traces in signoz
+- the app last week was in the /app folder
+- this week the app is `/app.py`
+- please instrument it and run as in the other lab once you are comfortable with what it does.
+
+## Instrumenting front end code
+
+- while preparing, I did this [javascript example](https://github.com/rhildred/node-otel).
+- this is based on a [javascript example](https://signoz.io/opentelemetry/nodejs/).
+- the javascript code for this project is in `/index.js`
+- please instrument it and run as in the other lab once you are comfortable with what it does.
+
+## Microfrontends
+
+- for autonomous teams to develop software that can then be composed in to an application
+- reduce coupling!
+- Martin Fowler wrote about this is [this excellent article](https://martinfowler.com/articles/micro-frontends.html)
+- the holy grail of distributed systems
+- not as well adopted as one would hope for
+
+## Composition
+
+- micro frontends have custom elements for their autonomous user interfaces
+- a custom element extends a HTMLElement to implement a particular new tag
+
+```javascript
+class Year extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = new Date().getFullYear();
+    }
+}
+```
+
+## The custom element is pulled in by
+```javascript
+customElements.define("x-date", Year);
+```
+
+and
+
+```html
+<script src="index.js" type="module"></script>
+```
