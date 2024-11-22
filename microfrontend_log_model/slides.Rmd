@@ -1,8 +1,49 @@
 ---
-title: Microfrontend (log appender)
+title: Assignment 1 revisited
+lab: https://github.com/rhildred/INFO8985-observable-monolith
 ---
 ## Agenda
 
-- Introduce the Challenge/Activity
-- Theory to support learning outcomes and the Activity
-- Initial demo of activity
+- THANKS to Punit for working with me on this
+- And providing the [worked example](`r rmarkdown::metadata$lab`) that we will go over
+- Revisit the marking scheme
+- Time to work
+
+## Worked Example
+
+- based on wordpress bitnami helm chart
+- overrode the image name in the values
+
+## playbook.yml
+
+```
+  - name: Deploy Wordpress chart from bitnami
+    kubernetes.core.helm:
+      chart_ref: oci://registry-1.docker.io/bitnamicharts/wordpress
+      values:
+        image:
+          repository: autoinstrumented-bitnami-wordpress
+
+```
+
+## autoinstrumented-wordpress/Dockerfile
+
+```
+RUN pecl install opentelemetry protobuf
+COPY otel.php.ini /opt/bitnami/php/etc/conf.d/
+# Copy in the composer vendor files and autoload.php
+COPY --from=build /app/vendor /var/www/otel
+ENV OTEL_PHP_AUTOLOAD_ENABLED=true
+```
+... to install the instrumentation
+
+## revised marking schema
+
+I decided to make this a written assignment with a deployment diagram.
+- the revised marking schema is with Punit's fork
+- moved back into my repository
+
+## next week
+
+- we will resume the paypal microfrontend example with logging
+- I decided that there wasn't 2 weeks of logging anyways
