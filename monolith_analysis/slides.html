@@ -11,7 +11,7 @@
 
 
 
-<title>Assignment 1 revisited</title>
+<title>Monolith (analysis - midterm review)</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,7 +354,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Assignment 1 revisited</h1>
+<h1 class="title toc-ignore">Monolith (analysis - midterm review)</h1>
 
 </div>
 
@@ -362,47 +362,140 @@ pre code {
 <div id="agenda" class="section level2">
 <h2>Agenda</h2>
 <ul>
-<li>THANKS to Punit for working with me on this</li>
-<li>And providing the <a href="https://github.com/rhildred/INFO8985-observable-monolith">worked example</a> that we will go over</li>
-<li>Revisit the marking scheme</li>
-<li>Time to work</li>
+<li>Review instrumentation from <a href="https://github.com/rhildred/info8985_monolith_analysis">last week</a> for assignment 1</li>
+<li>Review the learning outcomes for the midterm</li>
+<li>Work period on assignment 1</li>
+</ul>
+<p>Based on chapter 1-5 in text and notes summarized here.</p>
+</div>
+<div id="assignment-1" class="section level2">
+<h2>Assignment 1</h2>
+<ul>
+<li>please compare and contrast <a href="https://github.com/rhildred/info8985_monolith_analysis">last weeks lab</a> with <a href="https://github.com/open-telemetry/opentelemetry-php-contrib/tree/main/examples/instrumentation/Wordpress">this example</a></li>
+<li>the wordpress example uses the <code>autoinstrumented-wordpress.dockerfile</code> and <code>compose.yaml</code> to do the docker setup.</li>
+<li>the rest of the files are used in the containers</li>
+<li>start with last week’s lab to get the dependencies for docker-compose and ansible</li>
 </ul>
 </div>
-<div id="worked-example" class="section level2">
-<h2>Worked Example</h2>
+<div id="the-midterm-is-4-written-response-questions" class="section level2">
+<h2>The midterm is 4 written response questions</h2>
 <ul>
-<li>based on wordpress bitnami helm chart</li>
-<li>overrode the image name in the values</li>
+<li>in the quiz tool</li>
+<li>each question is worth 5 marks</li>
+<li>each question is based on a situation</li>
 </ul>
 </div>
-<div id="playbook.yml" class="section level2">
-<h2>playbook.yml</h2>
-<pre><code>  - name: Deploy Wordpress chart from bitnami
-    kubernetes.core.helm:
-      chart_ref: oci://registry-1.docker.io/bitnamicharts/wordpress
-      values:
-        image:
-          repository: autoinstrumented-bitnami-wordpress
-</code></pre>
-</div>
-<div id="autoinstrumented-wordpressdockerfile" class="section level2">
-<h2>autoinstrumented-wordpress/Dockerfile</h2>
-<pre><code>RUN pecl install opentelemetry protobuf
-COPY otel.php.ini /opt/bitnami/php/etc/conf.d/
-# Copy in the composer vendor files and autoload.php
-COPY --from=build /app/vendor /var/www/otel
-ENV OTEL_PHP_AUTOLOAD_ENABLED=true</code></pre>
-<p>… to install the instrumentation</p>
-</div>
-<div id="revised-marking-schema" class="section level2">
-<h2>revised marking schema</h2>
-<p>I decided to make this a written assignment with a deployment diagram. - the revised marking schema is with Punit’s fork - moved back into my repository</p>
-</div>
-<div id="next-week" class="section level2">
-<h2>next week</h2>
+<div id="covered-learning-outcomes" class="section level2">
+<h2>Covered Learning outcomes</h2>
 <ul>
-<li>we will resume the paypal microfrontend example with logging</li>
-<li>I decided that there wasn’t 2 weeks of logging anyways</li>
+<li>Test monolith and microservice architectures for observability and resolve deficiencies using tracing, metrics and logging.</li>
+<li>Support development and operations by separating exception tracing from exception handling.</li>
+<li>Prioritize deviations from metric baselines by sending and responding to alerts</li>
+<li>Justify issue priority based on evidence from monitoring and logging.</li>
+</ul>
+</div>
+<div id="test-for-deficiencies" class="section level2">
+<h2>Test for deficiencies</h2>
+<ul>
+<li>A dev-ops team would ultimately write a failing test that exposes the root cause of a system outage, make the test pass and deploy through continuous integration.</li>
+<li>Monitoring and logging helps get to the root cause of a problem a customer may be facing</li>
+<li>In chapter 4 of the book, we looked at different things we can learn from the otel demo</li>
+<li>correlate what the customer is seeing with metrics … for instance</li>
+</ul>
+</div>
+<div id="relate-reds-metrics-to-what-the-customer-is-seeing" class="section level2">
+<h2>Relate REDS metrics to what the customer is seeing</h2>
+<ul>
+<li>use metric attributes to drill down to the subsystem</li>
+<li>compare REDS metrics to what the customer is seeing</li>
+<li>errors for instance will be above the baseline established previously if customers are seeing errors</li>
+</ul>
+</div>
+<div id="separate-tracing-from-handling" class="section level2">
+<h2>Separate tracing from handling</h2>
+<pre class="python"><code>from opentelemetry import trace
+span = trace.get_current_span()
+except ValueError as exc:
+    # Record the exception and update the span status.
+    span.record_exception(exc)
+    span.set_status(trace.Status(trace.StatusCode.ERROR, str(exc)))
+    raise</code></pre>
+</div>
+<div id="separate-logging-from-handling" class="section level2">
+<h2>Separate logging from handling</h2>
+<pre class="python"><code>import traceback
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+try:
+    do_something_that_might_error()
+except Exception as error:
+    logger.debug(traceback.format_exc())
+    raise</code></pre>
+</div>
+<div id="separate-metric-from-handling" class="section level2">
+<h2>Separate Metric from handling</h2>
+<pre class="python"><code>try:
+    do_something_that_might_error()
+except:
+    error_counter.add(1, {&quot;error.module&quot;: __name__})
+    raise</code></pre>
+</div>
+<div id="always-remember-to-raise" class="section level2">
+<h2>Always remember to raise</h2>
+<pre class="python"><code>except ValueError as exc:
+    ...
+    raise</code></pre>
+<ul>
+<li>critical so that the calling app can deal with the exception</li>
+</ul>
+</div>
+<div id="alerts" class="section level2">
+<h2>Alerts</h2>
+<ul>
+<li>we use baselines to see if things have changed from when the system was put into production</li>
+<li>once we have a baseline we can establish thresholds for alerts</li>
+<li>Alerts are emmitted based on rules in the exporter that gets metrics</li>
+<li><code>(sum(rate(http_requests_total{status=&quot;500&quot;}[5m])) / sum(rate(http_requests_total[5m]))) &gt; 0.05</code> (prometheus promql)</li>
+</ul>
+</div>
+<div id="an-alert-is-defined-in-the-prometheus.yaml" class="section level2">
+<h2>An alert is defined in the <code>prometheus.yaml</code></h2>
+<pre class="yaml"><code>- alert: HighRequestErrorRate
+expr: (see above)
+for: 5m
+labels:
+    severity: critical
+annotations:
+    summary: High request error rate
+    description: HTTP errors have exceeded 5% for 5 minutes.</code></pre>
+</div>
+<div id="supporting-evidence" class="section level2">
+<h2>Supporting Evidence</h2>
+<ul>
+<li>make a proportional response to customer problems</li>
+<li>fix greatest risk first</li>
+<li>risk = probability x impact</li>
+<li>can assess the relative probability of the problem by comparing error metrics</li>
+</ul>
+</div>
+<div id="impact-is-trickier" class="section level2">
+<h2>Impact is trickier</h2>
+<ul>
+<li>customer will often have an opinion about how the problem is impacting them</li>
+<li>ideally we have KPI/metrics that can quantify the impact of a problem</li>
+<li>in the spirit of devops we should adjust KPIs based on problems we encounter and resolve</li>
+<li>KPIs must be understandable to the customer so that if the problem recurs we have a way of helping the customer to understand the impact.</li>
+</ul>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<ul>
+<li>didn’t get as far with analysis as I had hoped</li>
+<li>planning on introducing Thanos for analysis as it writes to S3 bucket for inexpensive storage</li>
+<li>failed this week trying to use terraform with localstack because of a dumb mistake</li>
+<li>more to come</li>
+<li>good luck on assignment and midterm</li>
 </ul>
 </div>
 
