@@ -1,8 +1,28 @@
 ---
-title: Microfrontend (log appender)
+title: Microfrontend (logging)
+lab: https://github.com/salesucation/hono-jsx-dom-with-vite
 ---
 ## Agenda
 
-- Introduce the Challenge/Activity
+- Introduce the [Challenge/Activity](`r rmarkdown::metadata$lab`)
 - Theory to support learning outcomes and the Activity
 - Initial demo of activity
+
+## Learning outcomes
+
+- Support appending to browser storage of logs so that logs are available for troubleshooting but not necessarily in real time.
+- Determine the conditions under which logs are made available for troubleshooting.
+
+## The lab
+
+- the lab is [here](`r rmarkdown::metadata$lab`)
+- right now it has signoz set up in docker-compose and a microfrontend
+- You will need to Configure CORS headers in `clickhouse-setup/otel-collector-config.yaml`
+- see [this article](https://opentelemetry.io/docs/languages/js/exporters/) 
+
+## Good luck!
+
+I am out of time just getting hono and the microfrontend working
+- hopefully end to end typescript makes configuration straightforward
+- I will complete the example for takeup next week
+- And fill it out a little for your 2nd assignment
