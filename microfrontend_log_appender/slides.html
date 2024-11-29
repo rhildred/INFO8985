@@ -11,7 +11,7 @@
 
 
 
-<title>Microfrontend (log appender)</title>
+<title>Microfrontend (logging)</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,7 +354,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Microfrontend (log appender)</h1>
+<h1 class="title toc-ignore">Microfrontend (logging)</h1>
 
 </div>
 
@@ -362,10 +362,30 @@ pre code {
 <div id="agenda" class="section level2">
 <h2>Agenda</h2>
 <ul>
-<li>Introduce the Challenge/Activity</li>
+<li>Introduce the <a href="https://github.com/salesucation/hono-jsx-dom-with-vite">Challenge/Activity</a></li>
 <li>Theory to support learning outcomes and the Activity</li>
 <li>Initial demo of activity</li>
 </ul>
+</div>
+<div id="learning-outcomes" class="section level2">
+<h2>Learning outcomes</h2>
+<ul>
+<li>Support appending to browser storage of logs so that logs are available for troubleshooting but not necessarily in real time.</li>
+<li>Determine the conditions under which logs are made available for troubleshooting.</li>
+</ul>
+</div>
+<div id="the-lab" class="section level2">
+<h2>The lab</h2>
+<ul>
+<li>the lab is <a href="https://github.com/salesucation/hono-jsx-dom-with-vite">here</a></li>
+<li>right now it has signoz set up in docker-compose and a microfrontend</li>
+<li>You will need to Configure CORS headers in <code>clickhouse-setup/otel-collector-config.yaml</code></li>
+<li>see <a href="https://opentelemetry.io/docs/languages/js/exporters/">this article</a></li>
+</ul>
+</div>
+<div id="good-luck" class="section level2">
+<h2>Good luck!</h2>
+<p>I am out of time just getting hono and the microfrontend working - hopefully end to end typescript makes configuration straightforward - I will complete the example for takeup next week - And fill it out a little for your 2nd assignment</p>
 </div>
 
 
