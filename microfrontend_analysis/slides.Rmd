@@ -1,52 +1,26 @@
 ---
-title: Assignment 1 revisited
-lab: https://github.com/rhildred/INFO8985-observable-monolith
+title: Assignment 2
+lab: https://github.com/rhildred/INFO8985-observable-microfrontend
 ---
 ## Agenda
 
-- THANKS to Punit for working with me on this
-- And providing the [worked example](`r rmarkdown::metadata$lab`) that we will go over
-- Revisit the marking scheme
-- Time to work
+- Unfortunately, I couldn't make the microfrontend work
+- I decided to make [Assignment 2](`r rmarkdown::metadata$lab`) a case study
+- There is a deployment diagram in the final exam so the deliverable is an explained deployment diagram in a word document.
+- I will describe the case in the github above and provide a starter deployment diagram.
+- Class today is to work the case.
 
-## Worked Example
+## Final Exam
 
-- based on wordpress bitnami helm chart
-- overrode the image name in the values
+- the final exam is in the same format as the midterm
+- 4 questions each worth 5 points
+- 1 question asks for a deployment diagram 
+- please remember that there is no 1 correct answer for many development or operational situations
+- support your answers with the things you learned from wrestling with otel this term
 
-## playbook.yml
+## The exam is designed to draw your thinking to these outcomes:
 
-```
-  - name: Deploy Wordpress chart from bitnami
-    kubernetes.core.helm:
-      name: wordpress
-      chart_ref: oci://registry-1.docker.io/bitnamicharts/wordpress
-      release_namespace: default
-      values:
-        image:
-          repository: autoinstrumented-bitnami-wordpress
-
-```
-
-## autoinstrumented-wordpress/Dockerfile
-
-```
-RUN pecl install opentelemetry protobuf
-COPY otel.php.ini /opt/bitnami/php/etc/conf.d/
-# Copy in the composer vendor files and autoload.php
-COPY --from=build /app/vendor /var/www/otel
-ENV OTEL_PHP_AUTOLOAD_ENABLED=true
-ENV OTEL_SERVICE_NAME=my-wordpress-installation
-```
-... to install the instrumentation
-
-## revised marking schema
-
-I decided to make this a written assignment with a deployment diagram.
-- the revised marking schema is with Punit's fork
-- moved back in to my repository
-
-## next week
-
-- we will resume the paypal microfrontend example with logging
-- I decided that there wasn't 2 weeks of logging anyways
+- Measure the REDS or Google golden metrics to provide feedback for operational success.
+- Select and implement tools to log from micro-front end UI to micro-services to meet operational requirements
+- Support daily reports for management overview of throughput for operational success
+- Recommend white box or black box techniques as indicated by information needs of business and stakeholder requirements. (this one has the deployment diagram)
