@@ -11,7 +11,7 @@
 
 
 
-<title>Assignment 1 revisited</title>
+<title>Assignment 2</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,7 +354,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Assignment 1 revisited</h1>
+<h1 class="title toc-ignore">Assignment 2</h1>
 
 </div>
 
@@ -362,50 +362,30 @@ pre code {
 <div id="agenda" class="section level2">
 <h2>Agenda</h2>
 <ul>
-<li>THANKS to Punit for working with me on this</li>
-<li>And providing the <a href="https://github.com/rhildred/INFO8985-observable-monolith">worked example</a> that we will go over</li>
-<li>Revisit the marking scheme</li>
-<li>Time to work</li>
+<li>Unfortunately, I couldn’t make the microfrontend work</li>
+<li>I decided to make <a href="https://github.com/rhildred/INFO8985-observable-microfrontend">Assignment 2</a> a case study</li>
+<li>There is a deployment diagram in the final exam so the deliverable is an explained deployment diagram in a word document.</li>
+<li>I will describe the case in the github above and provide a starter deployment diagram.</li>
+<li>Class today is to work the case.</li>
 </ul>
 </div>
-<div id="worked-example" class="section level2">
-<h2>Worked Example</h2>
+<div id="final-exam" class="section level2">
+<h2>Final Exam</h2>
 <ul>
-<li>based on wordpress bitnami helm chart</li>
-<li>overrode the image name in the values</li>
+<li>the final exam is in the same format as the midterm</li>
+<li>4 questions each worth 5 points</li>
+<li>1 question asks for a deployment diagram</li>
+<li>please remember that there is no 1 correct answer for many development or operational situations</li>
+<li>support your answers with the things you learned from wrestling with otel this term</li>
 </ul>
 </div>
-<div id="playbook.yml" class="section level2">
-<h2>playbook.yml</h2>
-<pre><code>  - name: Deploy Wordpress chart from bitnami
-    kubernetes.core.helm:
-      name: wordpress
-      chart_ref: oci://registry-1.docker.io/bitnamicharts/wordpress
-      release_namespace: default
-      values:
-        image:
-          repository: autoinstrumented-bitnami-wordpress
-</code></pre>
-</div>
-<div id="autoinstrumented-wordpressdockerfile" class="section level2">
-<h2>autoinstrumented-wordpress/Dockerfile</h2>
-<pre><code>RUN pecl install opentelemetry protobuf
-COPY otel.php.ini /opt/bitnami/php/etc/conf.d/
-# Copy in the composer vendor files and autoload.php
-COPY --from=build /app/vendor /var/www/otel
-ENV OTEL_PHP_AUTOLOAD_ENABLED=true
-ENV OTEL_SERVICE_NAME=my-wordpress-installation</code></pre>
-<p>… to install the instrumentation</p>
-</div>
-<div id="revised-marking-schema" class="section level2">
-<h2>revised marking schema</h2>
-<p>I decided to make this a written assignment with a deployment diagram. - the revised marking schema is with Punit’s fork - moved back in to my repository</p>
-</div>
-<div id="next-week" class="section level2">
-<h2>next week</h2>
+<div id="the-exam-is-designed-to-draw-your-thinking-to-these-outcomes" class="section level2">
+<h2>The exam is designed to draw your thinking to these outcomes:</h2>
 <ul>
-<li>we will resume the paypal microfrontend example with logging</li>
-<li>I decided that there wasn’t 2 weeks of logging anyways</li>
+<li>Measure the REDS or Google golden metrics to provide feedback for operational success.</li>
+<li>Select and implement tools to log from micro-front end UI to micro-services to meet operational requirements</li>
+<li>Support daily reports for management overview of throughput for operational success</li>
+<li>Recommend white box or black box techniques as indicated by information needs of business and stakeholder requirements. (this one has the deployment diagram)</li>
 </ul>
 </div>
 
