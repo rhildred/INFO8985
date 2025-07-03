@@ -37,6 +37,7 @@ marp: true
 - Azure Functions
 - knative functions
 - Cloudflare pages and functions or workers
+- k3s on the edge
 
 ---
 ## AWS Lambda
@@ -140,17 +141,10 @@ except:
     raise
 ```
 ---
-## I am a lot happier
-
-- got otel collector working with kubernetes and app.py
-- signoz built for opentelemetry from the ground up
-- super easy to create dashboards for metrics
-- logs, traces, exceptions and metrics all in the same place
----
 ## In the next few weeks
 
-- complete instrumentation of knative python function
+- complete instrumentation of python function
 - look in depth at analysis with signoz
-- get metrics, log, trace and get exceptions from javascript micro-frontends
-- instrument and analyze a complete open source app
+- get metrics, log, trace and exceptions from javascript micro-frontends
+- instrument and analyze a complete open source app for distributed tracing
 
